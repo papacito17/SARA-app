@@ -49,7 +49,7 @@ function ColorValor({ valor, esTotal }: { valor: number; esTotal: boolean }) {
   )
 }
 
-export default function EstadoResultadosPage() {
+function EstadoResultadosPageContent() {
   const searchParams = useSearchParams()
   const [datos, setDatos] = useState<DatosER | null>(null)
   const [cargando, setCargando] = useState(true)
@@ -340,5 +340,19 @@ export default function EstadoResultadosPage() {
         )}
       </div>
     </div>
+  )
+}
+
+import { Suspense } from 'react'
+
+export default function EstadoResultadosPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500 text-sm">Cargando...</p>
+      </div>
+    }>
+      <EstadoResultadosPageContent />
+    </Suspense>
   )
 }

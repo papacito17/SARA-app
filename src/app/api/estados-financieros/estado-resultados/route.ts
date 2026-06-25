@@ -1,14 +1,10 @@
-// src/app/api/estados-financieros/estado-resultados/route.ts
-// SARA - API Estado de Resultados
-// NIIF PYMES Sección 5 | LCT art. 43-54 | Formulario IR 106
-
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { calcularEstadoResultados } from '@/lib/estados-financieros'
 
 export async function GET(req: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
@@ -22,20 +18,18 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Parámetros requeridos: empresa_id, fecha_inicio, fecha_fin' }, { status: 400 })
     }
 
-    // Verificar acceso a la empresa
-    const { data: acceso } = await supabase
-      .from('usuarios_empresa')
-      .select('empresa_id')
-      .eq('usuario_id', user.id)
-      .eq('empresa_id', empresaId)
+    const { data: empresa } = await supabase
+      .from('empresas_juridicas')
+      .select('nombre_empresa, numero_ruc')
+      .eq('id', empresaId)
+      .eq('user_id', user.id)
       .single()
 
-    if (!acceso) return NextResponse.json({ error: 'Sin acceso a esta empresa' }, { status: 403 })
+    if (!empresa) return NextResponse.json({ error: 'Sin acceso a esta empresa' }, { status: 403 })
 
     const inicio = new Date(fechaInicio)
     const fin = new Date(fechaFin)
 
-    // Período comparativo: mismo rango del año anterior
     let inicioAnt: Date | undefined
     let finAnt: Date | undefined
     if (comparativo) {
@@ -49,15 +43,8 @@ export async function GET(req: NextRequest) {
       supabase, empresaId, inicio, fin, inicioAnt, finAnt
     )
 
-    // Obtener datos de la empresa
-    const { data: empresa } = await supabase
-      .from('empresas')
-      .select('nombre, ruc, actividad_economica')
-      .eq('id', empresaId)
-      .single()
-
     return NextResponse.json({
-      empresa,
+      empresa: { nombre: empresa.nombre_empresa, ruc: empresa.numero_ruc },
       periodo: { inicio: fechaInicio, fin: fechaFin },
       periodoAnterior: comparativo ? {
         inicio: inicioAnt?.toISOString().split('T')[0],
@@ -79,7 +66,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
@@ -87,13 +74,9 @@ export async function POST(req: NextRequest) {
     const { empresa_id, fecha_inicio, fecha_fin, notas } = body
 
     const resultado = await calcularEstadoResultados(
-      supabase,
-      empresa_id,
-      new Date(fecha_inicio),
-      new Date(fecha_fin)
+      supabase, empresa_id, new Date(fecha_inicio), new Date(fecha_fin)
     )
 
-    // Guardar snapshot del estado
     const { data, error } = await supabase
       .from('estados_financieros')
       .insert({
@@ -112,7 +95,6 @@ export async function POST(req: NextRequest) {
       .single()
 
     if (error) throw error
-
     return NextResponse.json({ id: data.id, ...resultado }, { status: 201 })
   } catch (error) {
     console.error('Error guardando estado resultados:', error)

@@ -34,7 +34,7 @@ function fmtC(v: number) {
 
 const COLS = ['capital', 'reserva', 'utilidades_retenidas', 'utilidad_ejercicio', 'total'] as const
 
-export default function CambiosPatrimonioPage() {
+function CambiosPatrimonioPageContent() {
   const searchParams = useSearchParams()
   const [datos, setDatos] = useState<DatosPatrimonio | null>(null)
   const [cargando, setCargando] = useState(true)
@@ -183,5 +183,19 @@ export default function CambiosPatrimonioPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+import { Suspense } from 'react'
+
+export default function CambiosPatrimonioPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500 text-sm">Cargando...</p>
+      </div>
+    }>
+      <CambiosPatrimonioPageContent />
+    </Suspense>
   )
 }

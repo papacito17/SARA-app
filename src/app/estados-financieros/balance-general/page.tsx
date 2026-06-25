@@ -83,7 +83,7 @@ function SeccionBalance({
   )
 }
 
-export default function BalanceGeneralPage() {
+function BalanceGeneralPageContent() {
   const searchParams = useSearchParams()
   const [datos, setDatos] = useState<DatosBG | null>(null)
   const [cargando, setCargando] = useState(true)
@@ -293,5 +293,19 @@ export default function BalanceGeneralPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+import { Suspense } from 'react'
+
+export default function BalanceGeneralPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500 text-sm">Cargando...</p>
+      </div>
+    }>
+      <BalanceGeneralPageContent />
+    </Suspense>
   )
 }

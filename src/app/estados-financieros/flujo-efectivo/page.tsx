@@ -39,7 +39,7 @@ function fmtC(v: number) {
 
 const COLORES_SECCION = ['bg-emerald-700', 'bg-purple-700', 'bg-orange-700']
 
-export default function FlujoEfectivoPage() {
+function FlujoEfectivoPageContent() {
   const searchParams = useSearchParams()
   const [datos, setDatos] = useState<DatosFlujo | null>(null)
   const [cargando, setCargando] = useState(true)
@@ -204,5 +204,19 @@ export default function FlujoEfectivoPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+import { Suspense } from 'react'
+
+export default function FlujoEfectivoPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500 text-sm">Cargando...</p>
+      </div>
+    }>
+      <FlujoEfectivoPageContent />
+    </Suspense>
   )
 }
