@@ -252,8 +252,4 @@ export function formatNIO(value: number): string {
 export function formatUSD(value: number): string {
   return new Intl.NumberFormat('es-NI', {
     style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(round2(value))
-}
+    currency: 'U

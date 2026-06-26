@@ -625,37 +625,4 @@ export default function NuevaCompraPage() {
                 <div>
                   <label className="label">Precio de venta (C$)</label>
                   <input type="number" className="input" min="0" step="0.01"
-                    value={prodForm.precio_venta}
-                    onChange={e => setProdForm(f => ({ ...f, precio_venta: parseFloat(e.target.value) || 0 }))}
-                    placeholder="0.00" />
-                  <p className="text-xs text-slate-400 mt-1">El precio de compra viene de la línea</p>
-                </div>
-
-                {/* Stock mínimo */}
-                <div>
-                  <label className="label">Stock mínimo</label>
-                  <input type="number" className="input" min="0" step="1"
-                    value={prodForm.stock_minimo ?? 0}
-                    onChange={e => setProdForm(f => ({ ...f, stock_minimo: parseFloat(e.target.value) || 0 }))}
-                    placeholder="0" />
-                  <p className="text-xs text-slate-400 mt-1">Alerta cuando el stock baje de aquí</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-3 p-5 border-t border-slate-100 sticky bottom-0 bg-white rounded-b-2xl">
-              <button onClick={handleCrearProducto} disabled={creandoProd}
-                className="btn-primary flex-1 flex items-center justify-center gap-2">
-                {creandoProd
-                  ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  : <><PackagePlus className="w-4 h-4" />Crear y agregar a la compra</>
-                }
-              </button>
-              <button onClick={() => setShowNuevoProd(false)} className="btn-secondary px-5">Cancelar</button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+    
