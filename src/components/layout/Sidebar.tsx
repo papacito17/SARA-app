@@ -109,4 +109,72 @@ export default function Sidebar() {
           </p>
           {financieroItems.map((item) => (
             <NavItem
-          
+              key={item.href}
+              href={item.href}
+              label={item.label}
+              icon={item.icon}
+              active={pathname.startsWith(item.href)}
+            />
+          ))}
+        </div>
+
+        {/* Nómina Section */}
+        <div className="pt-4 mt-3 border-t border-slate-700">
+          <p className="text-xs font-semibold text-gray-500 uppercase px-4 mb-2">
+            Nómina
+          </p>
+          <NavItem
+            href="/dashboard/nomina"
+            label="Nómina"
+            icon={UserCog}
+            active={pathname.startsWith('/dashboard/nomina')}
+          />
+        </div>
+
+        {/* Contabilidad Section */}
+        <div className="pt-4 mt-3 border-t border-slate-700">
+          <p className="text-xs font-semibold text-gray-500 uppercase px-4 mb-2">
+            Contabilidad
+          </p>
+          {contabilidadItems.map((item) => (
+            <NavItem
+              key={item.href}
+              href={item.href}
+              label={item.label}
+              icon={item.icon}
+              active={pathname.startsWith(item.href)}
+              submenu={item.submenu}
+            />
+          ))}
+        </div>
+
+        {/* Sistema Section */}
+        <div className="pt-4 mt-3 border-t border-slate-700">
+          <p className="text-xs font-semibold text-gray-500 uppercase px-4 mb-2">
+            Sistema
+          </p>
+          {sistemaItems.map((item) => (
+            <NavItem
+              key={item.href}
+              href={item.href}
+              label={item.label}
+              icon={item.icon}
+              active={pathname.startsWith(item.href)}
+            />
+          ))}
+        </div>
+      </nav>
+
+      {/* Bottom Section */}
+      <div className="border-t border-slate-700 p-4">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-gray-300 hover:bg-slate-700 transition-colors"
+        >
+          <LogOut size={20} />
+          <span className="text-sm font-medium">Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+  )
+}

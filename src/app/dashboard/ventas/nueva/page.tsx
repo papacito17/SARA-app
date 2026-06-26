@@ -390,4 +390,33 @@ export default function NuevaFacturaPage() {
             <label className="label">Notas (opcional)</label>
             <textarea className="input resize-none" rows={3} placeholder="Observaciones, condiciones de pago, etc." value={notas} onChange={e => setNotas(e.target.value)} />
           </div>
-      
+        </div>
+
+        {/* ── Panel resumen ── */}
+        <div>
+          <div className="card sticky top-6">
+            <h2 className="font-semibold text-slate-900 mb-4">Resumen</h2>
+            <div className="space-y-2 text-sm mb-6">
+              <div className="flex justify-between text-slate-600"><span>Subtotal</span><span>{formatCurrency(subtotal)}</span></div>
+              {descuentoTotal > 0 && (
+                <div className="flex justify-between text-red-600"><span>Descuento</span><span>- {formatCurrency(descuentoTotal)}</span></div>
+              )}
+              <div className="flex justify-between text-slate-600"><span>IVA (15%)</span><span>{formatCurrency(ivaTotal)}</span></div>
+              <div className="border-t border-slate-200 pt-2 flex justify-between font-bold text-lg text-slate-900">
+                <span>Total</span><span>{formatCurrency(total)}</span>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <button type="button" disabled={loading} onClick={() => handleSave("emitida")} className="btn-primary w-full flex items-center justify-center gap-2">
+                {loading ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Save className="w-4 h-4" />Emitir factura</>}
+              </button>
+              <button type="button" disabled={loading} onClick={() => handleSave("borrador")} className="btn-secondary w-full">
+                Guardar borrador
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -222,4 +222,4 @@ export type Departamento = (typeof DEPARTAMENTOS_NICARAGUA)[number];
 // ─── IVA Nicaragua ────────────────────────────────────────────────────────────
 
 export const IVA_NICARAGUA = 0.15; // 15%
-export const IR_RETENCION = 0.02;  // 2% IR e
+export const IR_RETENCION = 0.02;  // 2% IR en la fuente
