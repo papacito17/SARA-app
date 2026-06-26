@@ -1,5 +1,5 @@
-// ============================================================
-// SARA App – Componente: FormularioPago
+﻿// ============================================================
+// SARA App â€“ Componente: FormularioPago
 // src/components/pagos/FormularioPago.tsx
 // Soporta pagos simples, mixtos y parciales
 // ============================================================
@@ -16,7 +16,7 @@ import {
 } from '@/types/pagos'
 import { registrarPagosMixtos } from '@/lib/pagos/queries'
 
-// ── Props ─────────────────────────────────────────────────────
+// â”€â”€ Props â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 interface FormularioPagoProps {
   empresaId: string
   // Origen: factura o compra
@@ -32,7 +32,7 @@ interface FormularioPagoProps {
   modo?: 'cobrar' | 'pagar'   // cobrar = factura, pagar = compra
 }
 
-// ── Tipos de pago disponibles ─────────────────────────────────
+// â”€â”€ Tipos de pago disponibles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const TIPOS_PAGO: TipoPago[] = [
   'efectivo',
   'transferencia',
@@ -41,7 +41,7 @@ const TIPOS_PAGO: TipoPago[] = [
   'cheque',
 ]
 
-// ── Comisiones por defecto (editables) ───────────────────────
+// â”€â”€ Comisiones por defecto (editables) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const COMISION_DEFAULT: Partial<Record<TipoPago, number>> = {
   tarjeta_credito: 3.00,
   tarjeta_debito:  1.50,
@@ -59,7 +59,7 @@ export default function FormularioPago({
 }: FormularioPagoProps) {
   const saldoPendiente = round2(totalDocumento - montoPagado)
 
-  // ── Estado ──────────────────────────────────────────────────
+  // â”€â”€ Estado â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const [pagos, setPagos] = useState<PagoFormulario[]>([])
   const [tipoPago, setTipoPago] = useState<TipoPago>('efectivo')
   const [monto, setMonto] = useState<string>('')
@@ -74,7 +74,7 @@ export default function FormularioPago({
   const pendienteRestante = round2(saldoPendiente - totalAgregado)
   const pagosCompletan = totalAgregado >= saldoPendiente && saldoPendiente > 0
 
-  // Al cambiar tipo de pago, auto-llenar comisión
+  // Al cambiar tipo de pago, auto-llenar comisiÃ³n
   useEffect(() => {
     const def = COMISION_DEFAULT[tipoPago]
     setComisionPct(def !== undefined ? String(def) : '')
@@ -89,7 +89,7 @@ export default function FormularioPago({
     }
   }, [pendienteRestante])
 
-  // ── Agregar pago a la lista ──────────────────────────────────
+  // â”€â”€ Agregar pago a la lista â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function agregarPago() {
     setError(null)
     const montoNum = round2(parseFloat(monto) || 0)
@@ -103,11 +103,11 @@ export default function FormularioPago({
       return
     }
     if (tipoPago === 'cheque' && !numeroCheque.trim()) {
-      setError('Ingresa el número de cheque')
+      setError('Ingresa el nÃºmero de cheque')
       return
     }
     if ((tipoPago === 'transferencia') && !referencia.trim()) {
-      setError('Ingresa el número de referencia de la transferencia')
+      setError('Ingresa el nÃºmero de referencia de la transferencia')
       return
     }
 
@@ -127,12 +127,12 @@ export default function FormularioPago({
     setTipoPago('efectivo')
   }
 
-  // ── Eliminar pago de la lista ────────────────────────────────
+  // â”€â”€ Eliminar pago de la lista â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function eliminarPago(index: number) {
     setPagos(prev => prev.filter((_, i) => i !== index))
   }
 
-  // ── Guardar todos los pagos ──────────────────────────────────
+  // â”€â”€ Guardar todos los pagos â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function guardar() {
     setError(null)
     if (pagos.length === 0) {
@@ -161,7 +161,7 @@ export default function FormularioPago({
     }
   }
 
-  // ── Render ───────────────────────────────────────────────────
+  // â”€â”€ Render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 max-w-lg w-full">
       {/* Encabezado */}
@@ -204,8 +204,8 @@ export default function FormularioPago({
                   {p.numero_cheque && (
                     <span className="text-xs text-gray-400">Chq: {p.numero_cheque}</span>
                   )}
-                  {p.comision_pct > 0 && (
-                    <span className="text-xs text-orange-500">+{p.comision_pct}% com.</span>
+                  {(p.comision_pct ?? 0) > 0 && (
+                    <span className="text-xs text-orange-500">+{p.comision_pct ?? 0}% com.</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
@@ -269,7 +269,7 @@ export default function FormularioPago({
           {tipoPago === 'transferencia' && (
             <div className="mb-3">
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Número de referencia <span className="text-red-500">*</span>
+                NÃºmero de referencia <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -281,11 +281,11 @@ export default function FormularioPago({
             </div>
           )}
 
-          {/* Número de cheque */}
+          {/* NÃºmero de cheque */}
           {tipoPago === 'cheque' && (
             <div className="mb-3">
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Número de cheque <span className="text-red-500">*</span>
+                NÃºmero de cheque <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -297,11 +297,11 @@ export default function FormularioPago({
             </div>
           )}
 
-          {/* Comisión (tarjeta) */}
+          {/* ComisiÃ³n (tarjeta) */}
           {(tipoPago === 'tarjeta_debito' || tipoPago === 'tarjeta_credito') && (
             <div className="mb-3">
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Comisión bancaria (%)
+                ComisiÃ³n bancaria (%)
               </label>
               <div className="flex gap-2 items-center">
                 <input
@@ -316,7 +316,7 @@ export default function FormularioPago({
                 />
                 {comisionPct && parseFloat(monto) > 0 && (
                   <span className="text-xs text-orange-600">
-                    = {formatNIO(round2(parseFloat(monto) * parseFloat(comisionPct) / 100))} de comisión
+                    = {formatNIO(round2(parseFloat(monto) * parseFloat(comisionPct) / 100))} de comisiÃ³n
                   </span>
                 )}
               </div>
@@ -332,7 +332,7 @@ export default function FormularioPago({
         </div>
       )}
 
-      {/* Mensaje de éxito si completa */}
+      {/* Mensaje de Ã©xito si completa */}
       {pagosCompletan && (
         <div className="flex items-center gap-2 bg-green-50 text-green-700 rounded-lg px-4 py-3 mb-4 text-sm">
           <CheckCircle size={16} />
@@ -370,3 +370,4 @@ export default function FormularioPago({
     </div>
   )
 }
+
