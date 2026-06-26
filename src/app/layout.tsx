@@ -3,7 +3,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SARA – Sistema Automatizado de Registro Administrativo",
+  title: "sara-app",
   description:
     "Sistema contable y de facturación para empresas nicaragüenses. Cumple con estándares de la DGI.",
 };

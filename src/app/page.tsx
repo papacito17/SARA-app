@@ -18,7 +18,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
           <span className="font-display text-xl font-bold text-brand-800">
-            SARA<span className="text-accent-DEFAULT text-sm font-medium ml-1">Sistema Administrativo</span>
+            sara-app
           </span>
           <div className="flex items-center gap-3">
             <Link href="/auth/login" className="btn-ghost text-sm">
@@ -42,7 +42,7 @@ export default function LandingPage() {
             SARA
           </h1>
           <p className="text-blue-200 text-lg font-medium mb-4 tracking-wide uppercase">
-            Sistema Automatizado de Registro Administrativo
+            sara-app
           </p>
           <p className="text-lg text-blue-100 max-w-2xl mx-auto mb-10">
             Factura, compra, controla tu inventario y genera reportes listos
@@ -190,7 +190,7 @@ export default function LandingPage() {
       {/* ── FOOTER ── */}
       <footer className="bg-slate-900 text-slate-400 py-10 px-6 text-center text-sm">
         <p className="font-display font-bold text-white text-lg mb-1">SARA</p>
-        <p className="text-slate-500 text-xs mb-2">Sistema Automatizado de Registro Administrativo</p>
+        <p className="text-slate-500 text-xs mb-2">sara-app</p>
         <p>Sistema Contable para Nicaragua · Cumple con normativas DGI</p>
         <p className="mt-4">© {new Date().getFullYear()} SARA. Todos los derechos reservados.</p>
       </footer>

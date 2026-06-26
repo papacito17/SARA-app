@@ -14,7 +14,7 @@ export default function AuthLayout({
         >
           <span className="font-display text-xl font-bold text-white">SARA</span>
           <span className="text-blue-300 text-xs font-medium ml-2 hidden sm:inline">
-            Sistema Automatizado de Registro Administrativo
+            sara-app
           </span>
         </Link>
       </div>

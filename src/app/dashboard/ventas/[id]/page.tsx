@@ -230,7 +230,7 @@ export default function FacturaDetallePage() {
   ${factura.notas ? `<div class="notas"><div class="section-label">Notas</div><p style="font-size:12px;color:#475569;margin-top:4px">${factura.notas}</p></div>` : ""}
 
   <div class="pie">
-    Documento generado por SARA · Sistema Automatizado de Registro Administrativo<br/>
+    Documento generado por sara-app<br/>
     Nicaragua · RUC: ${empresa.ruc} · ${empresa.correo}
   </div>
 
@@ -528,7 +528,7 @@ export default function FacturaDetallePage() {
         )}
 
         <div className="border-t border-slate-100 mt-6 pt-4 text-center text-xs text-slate-400">
-          <p>Documento generado por SARA · Sistema Automatizado de Registro Administrativo</p>
+          <p>Documento generado por sara-app</p>
           <p className="mt-0.5">Nicaragua · RUC: {empresa?.ruc} · {empresa?.correo}</p>
         </div>
       </div>
